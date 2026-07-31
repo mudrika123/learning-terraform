@@ -1,1 +1,22 @@
+name: Terraform Destroy
 
+on:
+  workflow_dispatch:
+
+jobs:
+  destroy:
+    runs-on: self-hosted
+    environment: production
+    defaults:
+      run:
+        shell: powershell
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Destroy
+        run: terraform destroy -auto-approve -no-color
