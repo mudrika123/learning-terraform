@@ -1,1 +1,24 @@
+name: Terraform Apply
 
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  apply:
+    runs-on: self-hosted
+    environment: production
+    defaults:
+      run:
+        shell: powershell
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve -no-color
